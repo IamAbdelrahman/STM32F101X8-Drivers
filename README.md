@@ -12,7 +12,7 @@ Welcome to the STM32 Drivers repository! This project contains drivers for vario
 - [HAL Drivers](#hal-drivers)
   - [LED](#led)
   - [Button](#button)
-  - [Buzzer](#buzzer)
+  - [7-SEG](#7-seg)
   - [LCD](#lcd)
   - [Keypad](#keypad)
 
@@ -86,3 +86,10 @@ The Keypad driver provides functions to read key pressed from a 4x4 keypad.
 #### Features
 - Initialize the keypad
 - Read key pressed
+
+### 7-SEG
+The 7-Segment Display driver provides functions to control a 7-segment display.
+
+#### Features
+- Display digits on a 7-segment display
+- Clear the 7-segment display
