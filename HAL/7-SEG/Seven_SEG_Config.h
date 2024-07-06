@@ -2,15 +2,15 @@
  * Copyright (C) 2024 by Abdelrahman Kamal - Learn-In-Depth Diploma
  *****************************************************************************/
 /**
- * @file Seven_SEG_Config.h
+ * @file SEG_Config.h
  * @brief This module contains interface definitions for the
  *  7-SEG configuration.
  * @author Abdelrahman Kamal
  *
  */
 
-#ifndef SEVEN_SEG_CONFIG_H_
-#define SEVEN_SEG_CONFIG_H_
+#ifndef SEG_CONFIG_H
+#define SEG_CONFIG_H
 
 /**********************************************************************
  * Includes
@@ -20,38 +20,48 @@
 /**********************************************************************
  * Preprocessor Macros
  **********************************************************************/
-#define SEG_PORT PORTB
-#define START_PIN PIN0
-#define SEG_COMM_ANODE 1
-// #define SEG_COMM_CATHODE	2
-#ifdef SEG_COMM_ANODE
-#define ZERO 0X40
-#define ONE 0X79
-#define TWO 0X24
-#define THREE 0X30
-#define FOUR 0X19
-#define FIVE 0X12
-#define SIX 0X02
-#define SEVEN 0X78
-#define EIGHT 0X00
-#define NINE 0X10
-#endif
+/* Commands of 7-SEG Common Cathode */
+#define ZERO 	0x3F
+#define ONE 	0x05
+#define TWO 	0x5B
+#define THREE 	0x4F
+#define FOUR 	0x66
+#define FIVE 	0x6D
+#define SIX 	0x7D
+#define SEVEN 	0x07
+#define EIGHT 	0x7F
+#define NINE 	0x6F
 
-#ifdef SEG_COMM_CATHODE
-#define ZERO 63
-#define ONE 5
-#define TWO 91
-#define THREE 79
-#define FOUR 102
-#define FIVE 109
-#define SIX 125
-#define SEVEN 7
-#define EIGHT 127
-#define NINE 111
-#endif
+#define A 	0x77
+#define B 	0x7C
+#define C 	0x39
+#define E 	0x79
+#define F 	0x71
+#define H 	0x76
+#define L 	0x38
+#define O 	0x3F
+#define P 	0x73
+#define S 	0x6D
+#define U 	0x3E
+
+#define SEG0                                                                   \
+  (ST_SEG_t) {                                                                 \
+    PORTA, {PIN0, PIN1, PIN2, PIN3, PIN4, PIN5, PIN6, PIN7},                   \
+        GPIO_OUTPUT_PUSHPULL, GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ                 \
+  }
+
+/**********************************************************************
+ * Typedefs
+ **********************************************************************/
+typedef struct {
+  EN_GPIOX_t segPort;
+  EN_GPIOPin_t segPins[8];
+  EN_GPIOPinState_t segState;
+  EN_GPIOOutModeSpeed_t segMode;
+} ST_SEG_t;
+
 /**********************************************************************
  * Function Prototypes
  **********************************************************************/
-const ST_GpioConfig_t *const SEG_ConfigGet(void);
-
-#endif /* SEVEN_SEG_CONFIG_H_ */
+const ST_SEG_t *const SEG_ConfigGet(void);
+#endif /** _SEG_H **/

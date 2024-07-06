@@ -2,7 +2,7 @@
  * Copyright (C) 2024 by Abdelrahman Kamal - Learn-In-Depth Diploma
  *****************************************************************************/
 /**
- * @file Seven_SEG.h
+ * @file 7-SEG.h
  * @brief The interface definition for the 7-segment Driver
  *
  * This is the header file for the definition of the interface for
@@ -11,8 +11,8 @@
  *
  */
 
-#ifndef SEVEN_SEG_H_
-#define SEVEN_SEG_H_
+#ifndef _SEG_H
+#define _SEG_H
 
 /**********************************************************************
  * Includes
@@ -22,8 +22,8 @@
 /**********************************************************************
  * Function Prototypes
  **********************************************************************/
-void SevenSegment_Init();
-void SevenSegment_DisplayDigit(vuint8_t digit);
-void SevenSegment_Clear();
+void SevenSeg_Init(ST_SEG_t *pSEG);
+void SevenSeg_Display(ST_SEG_t *pSEG, vuint8_t display);
+void SevenSeg_Clear(ST_SEG_t *pSEG);
 
-#endif /* SEVEN_SEG_H_ */
+#endif /* _SEG_H */

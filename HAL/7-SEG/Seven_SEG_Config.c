@@ -2,7 +2,7 @@
  * Copyright (C) 2024 by Abdelrahman Kamal - Learn-In-Depth Diploma
  *****************************************************************************/
 /**
- * @file Seven_SEG_Config.c
+ * @file 7-SEG_Config.c
  * @brief This module contains the implementation for the 7-SEG configuration
  *
  * @author Abdelrahman Kamal
@@ -23,16 +23,9 @@
  * GpioConfig_t structure. This table is read in by 7-SEG_Init(), where each pin
  * is then set up based on this table.
  */
-const ST_GpioConfig_t SEGConfig[] = {
-    /*   PORT            	PIN					STATE					MODE
-     */
-    {SEG_PORT, PIN0, GPIO_OUTPUT_PUSHPULL, GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {SEG_PORT, PIN1, GPIO_OUTPUT_PUSHPULL, GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {SEG_PORT, PIN2, GPIO_OUTPUT_PUSHPULL, GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {SEG_PORT, PIN3, GPIO_OUTPUT_PUSHPULL, GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {SEG_PORT, PIN4, GPIO_OUTPUT_PUSHPULL, GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {SEG_PORT, PIN5, GPIO_OUTPUT_PUSHPULL, GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {SEG_PORT, PIN6, GPIO_OUTPUT_PUSHPULL, GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ}};
+const ST_SEG_t SEGConfig[] = {SEG0};
+
+vuint8_t SEG_CfgSize = sizeof(SEGConfig) / sizeof(SEGConfig[0]);
 
 /**********************************************************************
  * Function Definitions
@@ -51,6 +44,6 @@ const ST_GpioConfig_t SEGConfig[] = {
  ** @return A pointer to the configuration table.
 
  **********************************************************************/
-const ST_GpioConfig_t *const SEG_ConfigGet(void) {
-  return (ST_GpioConfig_t *const) & SEGConfig[0];
+const ST_SEG_t *const SEG_ConfigGet(void) {
+  return (ST_SEG_t *const) & SEGConfig[0];
 }
