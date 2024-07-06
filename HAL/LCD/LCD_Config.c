@@ -20,46 +20,28 @@
 /**
  * The following array contains the configuration data for each LCD driver
  * Each row represents a single pin. Each column is representing a member of the
- * GpioConfig_t structure. This table is read in by LCD_Init(), where each pin
+ * GPIOConfig_t structure. This table is read in by LCD_Init(), where each pin
  * is then set up based on this table.
  */
-const ST_GpioConfig_t LCDConfig[] = {
-    /* PORT						   PIN					STATE									MODE
-     */
-    {LCD_COMMAND_PORT, RS, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_COMMAND_PORT, RW, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_COMMAND_PORT, EN, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
+const ST_GPIOConfig_t LCDConfig[] = {LCD_COMMAND_RS,
+                                     LCD_COMMAND_RW,
+                                     LCD_COMMAND_EN,
 #ifdef EIGHT_BIT_MODE
-    {LCD_DATA_PORT, PIN0, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_DATA_PORT, PIN1, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_DATA_PORT, PIN2, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_DATA_PORT, PIN3, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_DATA_PORT, PIN4, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_DATA_PORT, PIN5, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_DATA_PORT, PIN6, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_DATA_PORT, PIN7, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ}
+                                     LCD_DATA0,
+                                     LCD_DATA1,
+                                     LCD_DATA2,
+                                     LCD_DATA3,
+                                     LCD_DATA4,
+                                     LCD_DATA5,
+                                     LCD_DATA6,
+                                     LCD_DATA7
 #endif
 
 #ifdef FOUR_BIT_MODE
-    {LCD_DATA_PORT, PIN4, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_DATA_PORT, PIN5, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_DATA_PORT, PIN6, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
-    {LCD_DATA_PORT, PIN7, GPIO_OUTPUT_PUSHPULL,
-     GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ}
+                                     LCD_DATA4,
+                                     LCD_DATA5,
+                                     LCD_DATA6,
+                                     LCD_DATA7
 #endif
 };
 
@@ -80,6 +62,6 @@ const ST_GpioConfig_t LCDConfig[] = {
  ** @return A pointer to the configuration table.
 
  **********************************************************************/
-const ST_GpioConfig_t *const LCD_ConfigGet(void) {
-  return (ST_GpioConfig_t *const) & LCDConfig[0];
+const ST_GPIOConfig_t *const LCD_ConfigGet(void) {
+  return (ST_GPIOConfig_t *const) & LCDConfig[0];
 }

@@ -45,9 +45,9 @@ void delay_ms(vuint32_t time) {
  *  @return void
  **********************************************************************/
 void LCD_Kick() {
-  Gpio_PinWrite(LCD_COMMAND_PORT, EN, HIGH);
+  GPIO_PinWrite(LCD_COMMAND_PORT, EN, HIGH);
   delay_ms(50);
-  Gpio_PinWrite(LCD_COMMAND_PORT, EN, LOW);
+  GPIO_PinWrite(LCD_COMMAND_PORT, EN, LOW);
   delay_ms(50);
 }
 
@@ -64,7 +64,7 @@ void LCD_Kick() {
  **********************************************************************/
 void LCD_Init() {
   delay_ms(20);
-  Gpio_Init(LCD_ConfigGet());
+  GPIO_Init(LCD_ConfigGet());
   delay_ms(20);
 #ifdef EIGHT_BIT_MODE
   LCD_sendCommand(LCD_FUNCTION_8BIT_2LINES);
@@ -97,8 +97,8 @@ void LCD_Init() {
  *  @return void
  **********************************************************************/
 void LCD_sendCommand(vuint8_t command) {
-  Gpio_PinWrite(LCD_COMMAND_PORT, RS, LOW);
-  Gpio_PinWrite(LCD_COMMAND_PORT, RW, LOW);
+  GPIO_PinWrite(LCD_COMMAND_PORT, RS, LOW);
+  GPIO_PinWrite(LCD_COMMAND_PORT, RW, LOW);
 #ifdef EIGHT_BIT_MODE
   *(DataOut[LCD_DATA_PORT]) = (*(DataOut[LCD_DATA_PORT]) & 0xFF00) | command;
   delay_ms(1);
@@ -132,8 +132,8 @@ void LCD_sendCommand(vuint8_t command) {
  *  @return void
  **********************************************************************/
 void LCD_sendChar(vuint8_t char_data) {
-  Gpio_PinWrite(LCD_COMMAND_PORT, RS, HIGH);
-  Gpio_PinWrite(LCD_COMMAND_PORT, RW, LOW);
+  GPIO_PinWrite(LCD_COMMAND_PORT, RS, HIGH);
+  GPIO_PinWrite(LCD_COMMAND_PORT, RW, LOW);
 #ifdef EIGHT_BIT_MODE
   *(DataOut[LCD_DATA_PORT]) = (*(DataOut[LCD_DATA_PORT]) & 0xFF00) | char_data;
   delay_ms(1);
