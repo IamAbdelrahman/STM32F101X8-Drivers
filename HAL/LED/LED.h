@@ -3,10 +3,10 @@
  *****************************************************************************/
 /**
  * @file LED.h
- * @brief The interface definition for the LED Driver
+ * @brief The interface definition for the LCD driver
  *
  * This is the header file for the definition of the interface for
- * the LED driver connected to the microcontroller
+ * the LCD driver connected to the microcontroller
  * @author Abdelrahman Kamal
  *
  */
@@ -16,13 +16,11 @@
 /**********************************************************************
  * Includes
  **********************************************************************/
-#include "GPIO.h"
-
+#include "LED_Config.h"
 /**********************************************************************
  * Function Prototypes
  **********************************************************************/
-void LED_On(EN_GpioX_t Port, EN_GpioPin_t Pin);
-void LED_Off(EN_GpioX_t Port, EN_GpioPin_t Pin);
-void LED_Toggle(EN_GpioX_t Port, EN_GpioPin_t Pin);
+void LED_Init(ST_LED_t *pLED);
+void LED_Control(ST_LED_t *pLED);
 
 #endif /* LED_LED_H_ */

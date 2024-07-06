@@ -18,60 +18,41 @@
  * Function Definitions
  **********************************************************************/
 /**********************************************************************
- * Function : LED_On()
+ * Function : LED_Init()
  *
  *  Description:
- *  This function is used to turn on a led connected to the MCU's channel(pin)
+ *  This function is used to initialize a led connected to the MCU's
+ *channel(pin)
  *
- *  PRE-CONDITION: The channel is configured as OUTPUT
- *  PRE-CONDITION: The channel is configured and initialized as GPIO
- *  PRE-CONDITION: The channel is within the maximum GpioPin_t definition
-
- *  @param Port is the port of the pin to write using the GpioX_t enum
- definition
- *  @param Pin is the pin to write using the GpioPin_t enum definition
-
+ *  PRE-CONDITION: Configuration table needs to populated (sizeof > 0)
+ *  @param pLED is the pointer to the configuration structure ST_LED_t
  *  @return void
  **********************************************************************/
-void LED_On(EN_GpioX_t Port, EN_GpioPin_t Pin) {
-  Gpio_PinWrite(Port, Pin, HIGH);
-}
+void LED_Init(ST_LED_t *pLED) { GPIO_Init(&pLED->ledCfg); }
 
 /**********************************************************************
- * Function : LED_Off()
+ * Function : LED_Control()
  *
  *  Description:
- *  This function is used to turn on a led connected to the MCU's channel(pin)
+ *  This function is used to control a led connected to the MCU's channel(pin)
  *
- *  PRE-CONDITION: The channel is configured as OUTPUT
- *  PRE-CONDITION: The channel is configured and initialized as GPIO
- *  PRE-CONDITION: The channel is within the maximum GpioPin_t definition
-
- *  @param Port is the port of the pin to write using the GpioX_t enum
- definition
- *  @param Pin is the pin to write using the GpioPin_t enum definition
+ *  PRE-CONDITION: LED is initialized
+ *  @param pLED is the pointer to the configuration structure ST_LED_t
 
  *  @return void
  **********************************************************************/
-void LED_Off(EN_GpioX_t Port, EN_GpioPin_t Pin) {
-  Gpio_PinWrite(Port, Pin, LOW);
-}
-/**********************************************************************
- * Function : LED_Toggle()
- *
- *  Description:
- *  This function is used to toggle a led connected to the MCU's channel(pin)
- *
- *  PRE-CONDITION: The channel is configured as OUTPUT
- *  PRE-CONDITION: The channel is configured and initialized as GPIO
- *  PRE-CONDITION: The channel is within the maximum GpioPin_t definition
-
- *  @param Port is the port of the pin to write using the GpioX_t enum
- definition
- *  @param Pin is the pin to write using the GpioPin_t enum definition
-
- *  @return void
- **********************************************************************/
-void LED_Toggle(EN_GpioX_t Port, EN_GpioPin_t Pin) {
-  Gpio_PinToggle(Port, Pin);
+void LED_Control(ST_LED_t *pLED) {
+  switch (pLED->ledState) {
+  case HIGH:
+    GPIO_PinWrite(pLED->ledCfg.Port, pLED->ledCfg.Pin, HIGH);
+    break;
+  case LOW:
+    GPIO_PinWrite(pLED->ledCfg.Port, pLED->ledCfg.Pin, LOW);
+    break;
+  case TOGGLE:
+    GPIO_PinToggle(pLED->ledCfg.Port, pLED->ledCfg.Pin);
+    break;
+  default:
+    break;
+  }
 }
