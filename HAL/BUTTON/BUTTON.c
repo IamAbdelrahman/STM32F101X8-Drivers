@@ -18,25 +18,32 @@
  * Function Definitions
  **********************************************************************/
 /**********************************************************************
- * Function :BUTTON_Read()
+ * Function : BUTTON_Init()
  *
- * Description:
+ *  Description:
+ *  This function is used to initialize a button connected to the MCU's
+ *channel(pin)
  *
- * This function is used to read the state of a Button
- * connected to the MCU's channel (pin)
- *
- * PRE-CONDITION: The channel is configured as INPUT
- * PRE-CONDITION: The channel is configured and initialized as GPIO
- * PRE-CONDITION: The channel is within the maximum GpioChannel_t
- * definition
- *
- * POST-CONDITION: The channel state is returned.
- * @param Port is the port of the pin to read from using the GpioX_t enum
- *definition
- * @param Pin is the GpioChannel_t that represents a pin
- *
- * @return The state of the pin as HIGH or LOW
+ *  PRE-CONDITION: Configuration table needs to populated (sizeof > 0)
+ *  @param pBUTTON is the pointer to the configuration structure ST_BUTTON_t
+ *  @return void
  **********************************************************************/
-PinState_t BUTTON_Read(EN_GpioX_t Port, EN_GpioPin_t Pin) {
-  return (Gpio_PinRead(Port, Pin));
+void BUTTON_Init(ST_BUTTON_t *pBUTTON) { GPIO_Init(&pBUTTON->buttonCfg); }
+
+/**********************************************************************
+ * Function : BUTTON_Control()
+ *
+ *  Description:
+ *  This function is used to read a button's state connected to the MCU's
+ channel(pin)
+ *
+ *  PRE-CONDITION: BUTTON is initialized
+ *  @param pBUTTON is the pointer to the configuration structure ST_BUTTON_t
+
+ *  @return void
+ **********************************************************************/
+PinState_t BUTTON_Read(ST_BUTTON_t *pBUTTON) {
+  pBUTTON->buttonState =
+      GPIO_PinRead(pBUTTON->buttonCfg.Port, pBUTTON->buttonCfg.Pin);
+  return (pBUTTON->buttonState);
 }

@@ -16,11 +16,12 @@
 /**********************************************************************
  * Includes
  **********************************************************************/
-#include "GPIO.h"
+#include "BUTTON_Config.h"
 
 /**********************************************************************
  * Function Prototypes
  **********************************************************************/
-PinState_t BUTTON_Read(EN_GpioX_t Port, EN_GpioPin_t Pin);
+void BUTTON_Init(ST_BUTTON_t *pBUTTON);
+PinState_t BUTTON_Read(ST_BUTTON_t *pBUTTON);
 
 #endif /* BUTTON_BUTTON_H_ */
