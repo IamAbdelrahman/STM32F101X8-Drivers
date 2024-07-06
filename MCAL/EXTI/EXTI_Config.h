@@ -20,8 +20,6 @@
  **********************************************************************/
 #include "GPIO_Config.h"
 #include "NVIC.h"
-#include "Stm32f101x8.h"
-
 /**********************************************************************
  * Typedefs
  **********************************************************************/
@@ -47,16 +45,16 @@ typedef struct {
  * Preprocessor Macros
  **********************************************************************/
 // @ref EXTI_Pins Numbers
-#define EXTI0 0U
-#define EXTI1 1U
-#define EXTI2 2U
-#define EXTI3 3U
-#define EXTI4 4U
-#define EXTI5 5U
-#define EXTI6 6U
-#define EXTI7 7U
-#define EXTI8 8U
-#define EXTI9 9U
+#define EXTI0 	0U
+#define EXTI1 	1U
+#define EXTI2 	2U
+#define EXTI3 	3U
+#define EXTI4 	4U
+#define EXTI5 	5U
+#define EXTI6 	6U
+#define EXTI7 	7U
+#define EXTI8 	8U
+#define EXTI9 	9U
 #define EXTI10 10U
 #define EXTI11 11U
 #define EXTI12 12U
@@ -327,6 +325,6 @@ typedef struct {
 /**********************************************************************
  * Function Prototypes
  **********************************************************************/
-const ST_GPIOConfig_t *const EXTI_ConfigGet(void);
+ const ST_GPIOConfig_t *const EXTI_ConfigGet(void);
 
 #endif /* EXTI_CONFIG_H_ */
