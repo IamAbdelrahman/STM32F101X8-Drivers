@@ -12,19 +12,19 @@
 /**********************************************************************
  * Includes
  **********************************************************************/
-#include "GPIO.h"
+#include <GPIO.h>
 
 /**********************************************************************
  * Module Variable Definitions
  **********************************************************************/
 extern vuint32_t ConfigSize;
-const GPIO_t *const Gpiox[NUMBER_OF_PORTS] = {GPIOA, GPIOB, GPIOC, GPIOD};
-RCC_t *pRCC = RCC;
+const ST_GPIO_t *const GPIOx[NUMBER_OF_PORTS] = {GPIOA, GPIOB, GPIOC, GPIOD};
+ST_RCC_t *pRCC = RCC;
 
 /**********************************************************************
  * Preprocessor Macros
  **********************************************************************/
-#define NUMBER_OF_USED_PINS (19U) /** According to the application **/
+#define NUMBER_OF_USED_PINS (11U) /** According to the application **/
 
 //-*-*-*-*-*-*-*-*-*-*-*-
 // clock enable Macros:
@@ -39,56 +39,56 @@ RCC_t *pRCC = RCC;
  * microcontroller.
  */
 static TYPE volatile *const DataIn[NUMBER_OF_PORTS] = {
-    (TYPE *)&Gpiox[0]->IDR, (TYPE *)&Gpiox[1]->IDR, (TYPE *)&Gpiox[2]->IDR,
-    (TYPE *)&Gpiox[3]->IDR};
+    (TYPE *)&GPIOx[0]->IDR, (TYPE *)&GPIOx[1]->IDR, (TYPE *)&GPIOx[2]->IDR,
+    (TYPE *)&GPIOx[3]->IDR};
 
 /**
  * Defines a table of pointers to the peripheral output register on the
  * microcontroller.
  */
-static TYPE volatile *const DataOut[NUMBER_OF_PORTS] = {
-    (TYPE *)&Gpiox[0]->ODR, (TYPE *)&Gpiox[1]->ODR, (TYPE *)&Gpiox[2]->ODR,
-    (TYPE *)&Gpiox[3]->ODR};
+TYPE volatile *const DataOut[NUMBER_OF_PORTS] = {
+    (TYPE *)&GPIOx[0]->ODR, (TYPE *)&GPIOx[1]->ODR, (TYPE *)&GPIOx[2]->ODR,
+    (TYPE *)&GPIOx[3]->ODR};
 
 /**
  * Defines a table of pointers to the peripheral input register on the
  * microcontroller.
  */
-static TYPE volatile *const ConfigLow[NUMBER_OF_PORTS] = {
-    (TYPE *)&Gpiox[0]->CRL, (TYPE *)&Gpiox[1]->CRL, (TYPE *)&Gpiox[2]->CRL,
-    (TYPE *)&Gpiox[3]->CRL};
+TYPE volatile *const ConfigLow[NUMBER_OF_PORTS] = {
+    (TYPE *)&GPIOx[0]->CRL, (TYPE *)&GPIOx[1]->CRL, (TYPE *)&GPIOx[2]->CRL,
+    (TYPE *)&GPIOx[3]->CRL};
 
 /**
  * Defines a table of pointers to the peripheral input register on the
  * microcontroller.
  */
-static TYPE volatile *const ConfigHigh[NUMBER_OF_PORTS] = {
-    (TYPE *)&Gpiox[0]->CRH, (TYPE *)&Gpiox[1]->CRH, (TYPE *)&Gpiox[2]->CRH,
-    (TYPE *)&Gpiox[3]->CRH};
+TYPE volatile *const ConfigHigh[NUMBER_OF_PORTS] = {
+    (TYPE *)&GPIOx[0]->CRH, (TYPE *)&GPIOx[1]->CRH, (TYPE *)&GPIOx[2]->CRH,
+    (TYPE *)&GPIOx[3]->CRH};
 
 /**
  * Defines a table of pointers to the peripheral reset register on the
  * microcontroller.
  */
 static TYPE volatile *const Reset[NUMBER_OF_PORTS] = {
-    (TYPE *)&Gpiox[0]->BRR, (TYPE *)&Gpiox[1]->BRR, (TYPE *)&Gpiox[2]->BRR,
-    (TYPE *)&Gpiox[3]->BRR};
+    (TYPE *)&GPIOx[0]->BRR, (TYPE *)&GPIOx[1]->BRR, (TYPE *)&GPIOx[2]->BRR,
+    (TYPE *)&GPIOx[3]->BRR};
 
 /**
  * Defines a table of pointers to the peripheral set/reset register on the
  * microcontroller.
  */
 static TYPE volatile *const SetReset[NUMBER_OF_PORTS] = {
-    (TYPE *)&Gpiox[0]->BSRR, (TYPE *)&Gpiox[1]->BSRR, (TYPE *)&Gpiox[2]->BSRR,
-    (TYPE *)&Gpiox[3]->BSRR};
+    (TYPE *)&GPIOx[0]->BSRR, (TYPE *)&GPIOx[1]->BSRR, (TYPE *)&GPIOx[2]->BSRR,
+    (TYPE *)&GPIOx[3]->BSRR};
 
 /**
  * Defines a table of pointers to the peripheral lock register on the
  * microcontroller.
  */
 static TYPE volatile *const Lock[NUMBER_OF_PORTS] = {
-    (TYPE *)&Gpiox[0]->LCKR, (TYPE *)&Gpiox[1]->LCKR, (TYPE *)&Gpiox[2]->LCKR,
-    (TYPE *)&Gpiox[3]->LCKR};
+    (TYPE *)&GPIOx[0]->LCKR, (TYPE *)&GPIOx[1]->LCKR, (TYPE *)&GPIOx[2]->LCKR,
+    (TYPE *)&GPIOx[3]->LCKR};
 
 /**********************************************************************
  * Function : Clock_Init()
@@ -194,13 +194,50 @@ uint8_t Get_CRLH_Position(uint8_t PinNumber) {
   return 0;
 }
 
+void Clear_Cfg(uint8_t PortNumber, uint8_t PinNumber, uint8_t Position) {
+  if (PinNumber < 8) {
+    switch (PortNumber) {
+    case 0:
+      CLR_NIBBLE((*ConfigLow[0]), Position);
+      break;
+    case 1:
+      CLR_NIBBLE((*ConfigLow[1]), Position);
+      break;
+    case 2:
+      CLR_NIBBLE((*ConfigLow[2]), Position);
+      break;
+    case 3:
+      CLR_NIBBLE((*ConfigLow[3]), Position);
+      break;
+    default:
+      break;
+    }
+  } else {
+    switch (PortNumber) {
+    case 0:
+      CLR_NIBBLE((*ConfigLow[0]), Position);
+      break;
+    case 1:
+      CLR_NIBBLE((*ConfigLow[1]), Position);
+      break;
+    case 2:
+      CLR_NIBBLE((*ConfigLow[2]), Position);
+      break;
+    case 3:
+      CLR_NIBBLE((*ConfigLow[3]), Position);
+      break;
+    default:
+      break;
+    }
+  }
+}
 /*********************************************************************
- * Function : Gpio_Init()
+ * Function : GPIO_Init()
  *
  * Description:
  *
  * This function is used to initialize the GPIO based on the configuration
- * table defined in Gpio_cfg module.
+ * table defined in GPIO_cfg module.
  *
  * PRE-CONDITION: Configuration table needs to populated (sizeof > 0)
  * PRE-CONDITION: NUMBER_OF_PINS_PER_PORT > 0
@@ -215,53 +252,14 @@ uint8_t Get_CRLH_Position(uint8_t PinNumber) {
  *
  * @return void
  * **********************************************************************/
-void Gpio_Init(const ST_GpioConfig_t *Config) {
-  vuint8_t i = 0;
-  vuint8_t PortNumber = 0;
-  vuint8_t PinNumber = 0;
-  vuint8_t PinConfig = 0;
-  for (i = 0; i < ConfigSize; i++) {
+void GPIO_Init(const ST_GPIOConfig_t *Config) {
+  vuint8_t i = 0, PortNumber = 0, PinNumber = 0, PinConfig = 0;
+  for (i = 0; i < NUMBER_OF_USED_PINS; i++) {
     PortNumber = Config[i].Port % NUMBER_OF_PORTS;
     PinNumber = Config[i].Pin % NUMBER_OF_PINS_PER_PORT;
 
     vuint8_t Position = Get_CRLH_Position(PinNumber);
-    // Clear the configuration register
-    if (PinNumber < 8) {
-      switch (PortNumber) {
-      case 0:
-        *(ConfigLow[0]) &= ~(0xf << Position);
-        break;
-      case 1:
-        *(ConfigLow[1]) &= ~(0xf << Position);
-        break;
-      case 2:
-        *(ConfigLow[2]) &= ~(0xf << Position);
-        break;
-      case 3:
-        *(ConfigLow[3]) &= ~(0xf << Position);
-        break;
-      default:
-        break;
-      }
-    } else {
-      switch (PortNumber) {
-      case 0:
-        *(ConfigHigh[0]) &= ~(0xf << Position);
-        break;
-      case 1:
-        *(ConfigHigh[1]) &= ~(0xf << Position);
-        break;
-      case 2:
-        *(ConfigHigh[2]) &= ~(0xf << Position);
-        break;
-      case 3:
-        *(ConfigHigh[3]) &= ~(0xf << Position);
-        break;
-      default:
-        break;
-      }
-    }
-
+    Clear_Cfg(PortNumber, PinNumber, Position);
     if (Config[i].State == GPIO_OUTPUT_PUSHPULL ||
         Config[i].State == GPIO_OUTPUT_OPENDRAIN ||
         Config[i].State == GPIO_ALTERNATE_PUSHPULL ||
@@ -308,7 +306,7 @@ void Gpio_Init(const ST_GpioConfig_t *Config) {
 }
 
 /**********************************************************************
- * Function :Gpio_ChannelRead()
+ * Function :GPIO_ChannelRead()
  *
  * Description:
  *
@@ -316,41 +314,41 @@ void Gpio_Init(const ST_GpioConfig_t *Config) {
  *
  * PRE-CONDITION: The channel is configured as INPUT
  * PRE-CONDITION: The channel is configured as GPIO
- * PRE-CONDITION: The channel is within the maximum GpioChannel_t
+ * PRE-CONDITION: The channel is within the maximum GPIOChannel_t
  * definition
  *
  * POST-CONDITION: The channel state is returned.
- * @param Port is the port of the pin to read from using the GpioX_t enum
+ * @param Port is the port of the pin to read from using the GPIOX_t enum
  *definition
- * @param Pin is the GpioChannel_t that represents a pin
+ * @param Pin is the GPIOChannel_t that represents a pin
  *
  * @return The state of the pin as HIGH or LOW
  **********************************************************************/
-PinState_t Gpio_PinRead(EN_GpioX_t Port, EN_GpioPin_t Pin) {
+PinState_t GPIO_PinRead(EN_GPIOX_t Port, EN_GPIOPin_t Pin) {
   PinState_t state;
   state = READ_BIT(*(DataIn[Port]), Pin);
   return state;
 }
 
 /**********************************************************************
- * Function : Gpio_PinWrite()
+ * Function : GPIO_PinWrite()
  *
  *  Description:
  *  This function is used to write the state of a channel (pin) as either
- *  logic high or low through the use of the GpioPin_t enum to select
+ *  logic high or low through the use of the GPIOPin_t enum to select
  *  the channel and the PinState_t to define the desired state
  *
  *  PRE-CONDITION: The channel is configured as OUTPUT
  *  PRE-CONDITION: The channel is configured as GPIO
- *  PRE-CONDITION: The channel is within the maximum GpioPin_t definition
+ *  PRE-CONDITION: The channel is within the maximum GPIOPin_t definition
  *  POST-CONDITION: The channel state will be State
- *  @param Port is the port of the pin to write using the GpioX_t enum
+ *  @param Port is the port of the pin to write using the GPIOX_t enum
  *definition
- *  @param Pin is the pin to write using the GpioPin_t enum definition
+ *  @param Pin is the pin to write using the GPIOPin_t enum definition
  *  @param State is HIGH or LOW as defined in the  PinState_t enum definition
  *  @return void
  **********************************************************************/
-void Gpio_PinWrite(EN_GpioX_t Port, EN_GpioPin_t Pin, PinState_t State) {
+void GPIO_PinWrite(EN_GPIOX_t Port, EN_GPIOPin_t Pin, PinState_t State) {
   if (State == HIGH) {
     SET_BIT(*(DataOut[Port]), Pin);
   } else {
@@ -358,89 +356,88 @@ void Gpio_PinWrite(EN_GpioX_t Port, EN_GpioPin_t Pin, PinState_t State) {
   }
 }
 /**********************************************************************
- * Function : Gpio_PinToggle()
+ * Function : GPIO_PinToggle()
  *
  *  Description:
  *  This function is used to toggle the state of a channel (pin) as either
- *  logic high or low through the use of the GpioPin_t enum
+ *  logic high or low through the use of the GPIOPin_t enum
  *
  *  PRE-CONDITION: The channel is configured as OUTPUT
  *  PRE-CONDITION: The channel is configured as GPIO
- *  PRE-CONDITION: The channel is within the maximum GpioPin_t definition
+ *  PRE-CONDITION: The channel is within the maximum GPIOPin_t definition
 
- *  @param Port is the port of the pin to write using the GpioX_t enum
+ *  @param Port is the port of the pin to write using the GPIOX_t enum
  definition
- *  @param Pin is the pin to write using the GpioPin_t enum definition
+ *  @param Pin is the pin to write using the GPIOPin_t enum definition
 
  *  @return void
  **********************************************************************/
-void Gpio_PinToggle(EN_GpioX_t Port, EN_GpioPin_t Pin) {
+void GPIO_PinToggle(EN_GPIOX_t Port, EN_GPIOPin_t Pin) {
   TOGGLE_BIT(*(DataOut[Port]), Pin);
 }
 
 /**********************************************************************
- * Function : Gpio_Reset()
+ * Function : GPIO_Reset()
  *
  *  Description:
  *  This function is used to reset all the GPIO Registers
 
- *  @param Port is the port to be reset using the GpioX_t enum definition
+ *  @param Port is the port to be reset using the GPIOX_t enum definition
 
  *  @return void
  **********************************************************************/
-void Gpio_Reset(EN_GpioX_t Port) {
-  *(ConfigLow[Port]) = 0x44444444;
-  *(ConfigHigh[Port]) = 0x44444444;
-  *(DataOut[Port]) = 0x00000000;
-  *(Reset[Port]) = 0x00000000;
-  *(SetReset[Port]) = 0x00000000;
-  *(Lock[Port]) = 0x00000000;
+void GPIO_Reset(EN_GPIOX_t Port) {
+  *(ConfigLow[Port]) 	= 0x44444444;
+  *(ConfigHigh[Port]) 	= 0x44444444;
+  *(DataOut[Port]) 	= 0x00000000;
+  *(Reset[Port]) 	= 0x00000000;
+  *(SetReset[Port]) 	= 0x00000000;
+  *(Lock[Port]) 	= 0x00000000;
 }
 
 /**********************************************************************
- * Function : Gpio_ReadPort()
+ * Function : GPIO_ReadPort()
  *
  *  Description:
  *  This function is used to read the whole IDR register in GPIO
 
- *  @param Port is the port to be read using the GpioX_t enum definition
+ *  @param Port is the port to be read using the GPIOX_t enum definition
 
  *  @return the value of the 16-bit register
  **********************************************************************/
-uint16_t Gpio_ReadPort(EN_GpioX_t Port) { return (vuint16_t) * (DataIn[Port]); }
+uint16_t GPIO_ReadPort(EN_GPIOX_t Port) { return (vuint16_t) * (DataIn[Port]); }
 
 /**********************************************************************
- * Function : Gpio_WritePort()
+ * Function : GPIO_WritePort()
  *
  *  Description:
  *  This function is used to write to  the whole ODR register in GPIO
 
- *  @param Port is the port to be written using the GpioX_t enum definition
+ *  @param Port is the port to be written using the GPIOX_t enum definition
  *  @param PortValue is the value we write to the port.
 
  *  @return void
  **********************************************************************/
-void Gpio_WritePort(EN_GpioX_t Port, vuint16_t PortValue) {
+void GPIO_WritePort(EN_GPIOX_t Port, vuint16_t PortValue) {
   *(DataOut[Port]) = PortValue;
 }
 
 /**********************************************************************
- * Function : Gpio_LockPort()
+ * Function : GPIO_LockPort()
  *
  *  Description:
  *  This function is used to lock a bit of the GPIO register
 
- *  @param Port is the port number using the GpioX_t enum definition
- *  @param Pin is the pin to be locked using the GpioPin_t enum definition
+ *  @param Port is the port number using the GPIOX_t enum definition
+ *  @param Pin is the pin to be locked using the GPIOPin_t enum definition
 
  *  @return the state of the pin whether it's locked or not
  **********************************************************************/
-EN_GpioLockState_t Gpio_LockPort(EN_GpioX_t Port, EN_GpioPin_t Pin) {
+EN_GPIOLockState_t GPIO_LockPort(EN_GPIOX_t Port, EN_GPIOPin_t Pin) {
   SET_BIT(*(Lock[Port]), Pin);
   SET_BIT(*(Lock[Port]), 16);
   CLR_BIT(*(Lock[Port]), 16);
   SET_BIT(*(Lock[Port]), 16);
-  READ_BIT(*(Lock[Port]), 16);
   if (READ_BIT(*(Lock[Port]), 16)) {
     return GPIO_LOCK_Enabled;
   } else {
