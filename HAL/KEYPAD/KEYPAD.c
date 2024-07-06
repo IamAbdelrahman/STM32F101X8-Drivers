@@ -24,22 +24,22 @@ vuint8_t Col_Size = sizeof(Keypad_Cols) / sizeof(Keypad_Cols[0]);
  * Function Definitions
  **********************************************************************/
 void KEYPAD_Init(void) {
-  Gpio_Init(KEYPAD_ConfigGet());
+  GPIO_Init(KEYPAD_ConfigGet());
   vuint8_t i = 0;
   for (i = 0; i < Row_Size; i++) {
-    Gpio_PinWrite(KEYPAD_PORT, Keypad_Rows[i], LOW);
+    GPIO_PinWrite(KEYPAD_PORT, Keypad_Rows[i], LOW);
   }
 }
 
 vuint8_t KEYPAD_getKey(void) {
   vuint8_t i = 0, j = 0;
   for (i = 0; i < Row_Size; i++) {
-    Gpio_PinWrite(KEYPAD_PORT, Keypad_Rows[i], HIGH);
+    GPIO_PinWrite(KEYPAD_PORT, Keypad_Rows[i], HIGH);
     for (j = 0; j < Col_Size; j++) {
-      if (Gpio_PinRead(KEYPAD_PORT, Keypad_Cols[j])) {
-        while (Gpio_PinRead(KEYPAD_PORT, Keypad_Cols[j]))
+      if (GPIO_PinRead(KEYPAD_PORT, Keypad_Cols[j])) {
+        while (GPIO_PinRead(KEYPAD_PORT, Keypad_Cols[j]))
           ;
-        Gpio_PinWrite(KEYPAD_PORT, Keypad_Rows[i], LOW);
+        GPIO_PinWrite(KEYPAD_PORT, Keypad_Rows[i], LOW);
         switch (i) {
         case 0:
           if (j == 0)
@@ -84,7 +84,7 @@ vuint8_t KEYPAD_getKey(void) {
         }
       }
     }
-    Gpio_PinWrite(KEYPAD_PORT, Keypad_Rows[i], LOW);
+    GPIO_PinWrite(KEYPAD_PORT, Keypad_Rows[i], LOW);
   }
   return 'N'; // No key pressed
 }

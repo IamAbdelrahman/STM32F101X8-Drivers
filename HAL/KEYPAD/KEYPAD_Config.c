@@ -27,11 +27,11 @@
 /**
  * The following array contains the configuration data for each KEYPAD driver
  * Each row represents a single pin.
- * Each column is representing a member of the GpioConfig_t structure.
+ * Each column is representing a member of the GPIOConfig_t structure.
  * This table is read in by KEYPAD_Init(), where each pin is then set up based
  * on this table.
  */
-const ST_GpioConfig_t KEYPADConfig[] = {
+const ST_GPIOConfig_t KEYPADConfig[] = {
     /* PORT						   PIN					STATE									MODE
      */
     {KEYPAD_PORT, PIN0, GPIO_OUTPUT_PUSHPULL, GPIO_MAX_OUTPUT_MODE_SPEED_10MHZ},
@@ -63,6 +63,6 @@ const ST_GpioConfig_t KEYPADConfig[] = {
  ** @return A pointer to the configuration table.
 
  **********************************************************************/
-const ST_GpioConfig_t *const KEYPAD_ConfigGet(void) {
-  return (ST_GpioConfig_t *const) & KEYPADConfig[0];
+const ST_GPIOConfig_t *const KEYPAD_ConfigGet(void) {
+  return (ST_GPIOConfig_t *const) & KEYPADConfig[0];
 }

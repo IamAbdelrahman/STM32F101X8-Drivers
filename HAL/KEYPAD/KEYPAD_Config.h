@@ -20,15 +20,15 @@
 /**********************************************************************
  * Preprocessor Macros
  **********************************************************************/
-#define KEYPAD_PORT PORTB
-#define ROW0 PIN0
-#define ROW1 PIN1
-#define ROW2 PIN3
-#define ROW3 PIN4
-#define COL0 PIN5
-#define COL1 PIN6
-#define COL2 PIN7
-#define COL3 PIN8
+#define KEYPAD_PORT 	PORTB
+#define ROW0 		PIN0
+#define ROW1 		PIN1
+#define ROW2 		PIN3
+#define ROW3 		PIN4
+#define COL0 		PIN5
+#define COL1 		PIN6
+#define COL2 		PIN7
+#define COL3 		PIN8
 
 /**********************************************************************
  * Typedefs
@@ -37,5 +37,5 @@
 /**********************************************************************
  * Function Prototypes
  **********************************************************************/
-const ST_GpioConfig_t *const KEYPAD_ConfigGet(void);
+const ST_GPIOConfig_t *const KEYPAD_ConfigGet(void);
 #endif /* KEYPAD_CONFIG_H */
