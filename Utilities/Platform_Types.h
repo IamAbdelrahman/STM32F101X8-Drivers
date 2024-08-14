@@ -35,7 +35,7 @@
 -----------------------------------------------------------------------*/
 #define CPU_TYPE 	        CPU_TYPE_64
 #define CPU_BIT_ORDER 	        LSB_FIRST
-#define CPU_BYTE_ORDER         LOW_BYTE_FIRST
+#define CPU_BYTE_ORDER          LOW_BYTE_FIRST
 
 /*- GLOBAL TYPEDEFS
 -----------------------------------------------------------------------*/
@@ -47,7 +47,7 @@ typedef unsigned long 		uint32_t;
 typedef long long 		int64_t;
 typedef unsigned long long 	uint64_t;
 
-typedef volatile int8_t	vint8_t;
+typedef volatile int8_t		vint8_t;
 typedef volatile uint8_t 	vuint8_t;
 
 typedef volatile int16_t 	vint16_t;
