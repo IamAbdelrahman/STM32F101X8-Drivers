@@ -33,9 +33,9 @@
 
 /*- GLOBAL MACROS
 -----------------------------------------------------------------------*/
-#define CPU_TYPE 	CPU_TYPE_64
-#define CPU_BIT_ORDER 	LSB_FIRST
-#define CPU_BYTE_ORDER LOW_BYTE_FIRST
+#define CPU_TYPE 	        CPU_TYPE_64
+#define CPU_BIT_ORDER 	        LSB_FIRST
+#define CPU_BYTE_ORDER         LOW_BYTE_FIRST
 
 /*- GLOBAL TYPEDEFS
 -----------------------------------------------------------------------*/
