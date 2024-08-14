@@ -51,7 +51,7 @@
  * @param BIT_NO The bit number to read.
  * @return The value of the bit (0 or 1).
  */
-#define READ_BIT(REG, BIT_NO) 			((REG & (1U << BIT_NO)) >> BIT_NO)
+#define READ_BIT(REG, BIT_NO) 				((REG & (1U << BIT_NO)) >> BIT_NO)
 
 /**
  * @brief Sets a nibble (4 bits) in a register.
@@ -68,7 +68,7 @@
  * @param VALUE The value to set the nibble to.
  * @param POSITION The position of the nibble to modify.
  */
-#define SET_NIBBLE_VALUE(REG, VALUE, POSITION)	(REG = (REG & ~(0xF << POSITION)) | \
+#define SET_NIBBLE_VALUE(REG, VALUE, POSITION)		(REG = (REG & ~(0xF << POSITION)) | \
 							((VALUE & 0xF) << POSITION))
 
 /**
@@ -101,7 +101,7 @@
  * @param REG The 32-bit register to modify.
  * @return The register with swapped endianness.
  */
-#define SWAP_ENDIANS(REG)                             (((REG & 0X000000FF) << 24U) | ((REG & 0X0000FF00) << 8U) |  \
+#define SWAP_ENDIANS(REG)                             	(((REG & 0X000000FF) << 24U) | ((REG & 0X0000FF00) << 8U) |  \
    							((REG & 0X00FF0000) >> 8U) | ((REG & 0xFF000000) >> 24U))
 
 /**
