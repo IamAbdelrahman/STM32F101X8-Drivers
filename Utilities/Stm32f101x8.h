@@ -103,7 +103,7 @@ typedef enum { LOW = 0, HIGH, TOGGLE } PinState_t;
 #define SRAM_MEMORY_BASE 				(0x20000000UL)
 #define SYSTEM_MEMORY_BASE 				(0x1FFFF000UL)
 #define PERIPHERAL_BASE 				(0x40000000UL)
-#define CORE_INTERNAL_PERIPHERAL_BASE 		(0xE0000000UL)
+#define CORE_INTERNAL_PERIPHERAL_BASE 			(0xE0000000UL)
 
 /*- CORE PERIPHERALS BASE ADDRESSES */
 #define NVIC_BASE 				   	((0xE000E100UL)
@@ -138,8 +138,8 @@ typedef enum { LOW = 0, HIGH, TOGGLE } PinState_t;
 
 #define EXTI 						(ST_EXTI_t *)(EXTI_BASE)
 
-#define USART1 					(ST_USART_t *)(USART1_BASE)
-#define USART2 					(ST_USART_t *)(USART2_BASE)
-#define USART3 					(ST_USART_t *)(USART3_BASE)
+#define USART1 						(ST_USART_t *)(USART1_BASE)
+#define USART2 						(ST_USART_t *)(USART2_BASE)
+#define USART3 						(ST_USART_t *)(USART3_BASE)
 
 #endif /* STM32F101X8_H_ */
