@@ -7,7 +7,7 @@ Welcome to the STM32 Drivers repository! This project contains drivers for vario
 - [Introduction](#introduction)
 - [Features](#features)
 - [MCAL Drivers](#mcal-drivers)
-  - [DIO](#dio)
+ - [DIO](#dio)
   - [EXTI](#exti)
 - [HAL Drivers](#hal-drivers)
   - [LED](#led)
