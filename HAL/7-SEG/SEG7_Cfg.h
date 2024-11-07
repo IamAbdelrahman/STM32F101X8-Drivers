@@ -20,6 +20,7 @@
 /*- GLOBAL MACROS
 -----------------------------------------------------------------------*/
 #define SEG_PINS 7
+
 /*- DEFINE SEG7 COMMON CATHODE CONFIGURATION */
 #define ZERO 	0x3F
 #define ONE 	0x05
