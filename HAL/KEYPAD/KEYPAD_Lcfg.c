@@ -28,7 +28,7 @@
 -----------------------------------------------------------------------*/
 static const ST_KEYPADConfig_t configKeypad[] = {KEYROWS, KEYCOLS};
 
-/*- GLOBAL EXTERN VARIABLES
+/*- GLOBAL VARIABLES
 -----------------------------------------------------------------------*/
 
 /*- LOCAL FUNCTIONS IMPLEMENTATION
