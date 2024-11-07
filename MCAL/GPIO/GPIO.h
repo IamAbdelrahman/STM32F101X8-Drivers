@@ -63,7 +63,7 @@ EN_PIN_STATE_t GPIO_PinRead(EN_GPIOX_t portNumber, EN_GPIO_PIN_t pinNumber);
 /************************************************************************
  * Service Name: GPIO_PinWrite
  * Syntax: void GPIO_PinWrite(EN_GPIOX_t portNumber, EN_GPIO_PIN_t pinNumber,
- *EN_PIN_STATE_t state) Sync/Async: Synchronous Reentrancy: Non reentrant
+ * EN_PIN_STATE_t state) Sync/Async: Synchronous Reentrancy: Non reentrant
  * @description: Write the state of a GPIO channel (pin) as either logic high or
  *low PRE-CONDITION: The GPIO is configured and initialized POST-CONDITION: The
  *channel (pin) has a logic level (1 or 0)
@@ -79,7 +79,7 @@ void GPIO_PinWrite(EN_GPIOX_t portNumber, EN_GPIO_PIN_t pinNumber,
 
 /************************************************************************
  * Service Name: GPIO_PinToggle
- * Syntax: void GPIO_PinToggle(EN_GPIOX_t portNumber, EN_GPIOPin_t pinNumber)
+ * Syntax: void GPIO_PinToggle(EN_GPIOX_t portNumber, EN_GPIO_PIN_t pinNumber)
  * Sync/Async: Synchronous
  * Reentrancy: Non reentrant
  * @description: Toggle the state of a channel (pin) as either logic high or low
@@ -135,14 +135,14 @@ vuint16_t GPIO_PortRead(EN_GPIOX_t portNumber);
  * @param (in): portValue is the value to be set by the user
  * @param (inout): None
  * @param (out): None
- * @return: volatile unsigned short int
+ * @return: None
  *************************************************************************/
 void GPIO_PortWrite(EN_GPIOX_t portNumber, vuint16_t portValue);
 
 /************************************************************************
  * Service Name: GPIO_LockPort
  * Syntax: EN_GPIO_LOCK_STATE_t GPIO_LockPin(EN_GPIOX_t portNumber,
- *EN_GPIO_PIN_t pin) Sync/Async: Synchronous Reentrancy: Non reentrant
+ * EN_GPIO_PIN_t pin). Sync/Async: Synchronous. Reentrancy: Non reentrant
  * @description: Lock a pin of the GPIO register
  * PRE-CONDITION: The GPIO is configured and initialized
  * POST-CONDITION: The pin is locked correctly or not
