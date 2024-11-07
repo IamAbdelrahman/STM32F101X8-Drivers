@@ -1,45 +1,57 @@
 /******************************************************************************
  * Copyright (C) 2024 by Abdelrahman Kamal - Learn-In-Depth Diploma
  *****************************************************************************/
-/**
+
+/*****************************************************************************
+ * FILE DESCRIPTION
+ * ----------------------------------------------------------------------------
  * @file KEYPAD.c
  * @brief The implementation for the KEYPAD driver
  *
- * @author Abdelrahman Kamal
- *
- */
-/**********************************************************************
- * Includes
- **********************************************************************/
-#include <KEYPAD.h>
+ ****************************************************************************/
 
-/**********************************************************************
- * Module Variables
- **********************************************************************/
-const vuint8_t Keypad_Rows[] = {ROW0, ROW1, ROW2, ROW3};
-const vuint8_t Keypad_Cols[] = {COL0, COL1, COL2, COL3};
-vuint8_t Row_Size = sizeof(Keypad_Rows) / sizeof(Keypad_Rows[0]);
-vuint8_t Col_Size = sizeof(Keypad_Cols) / sizeof(Keypad_Cols[0]);
-/**********************************************************************
- * Function Definitions
- **********************************************************************/
-void KEYPAD_Init(void) {
-  GPIO_Init(KEYPAD_ConfigGet());
+/*- INCLUDES
+ -----------------------------------------------------------------------*/
+#include "../inc/KEYPAD.h"
+
+/*- LOCAL MACROS
+ -----------------------------------------------------------------------*/
+
+/*- LOCAL DATATYPES
+ -----------------------------------------------------------------------*/
+
+/*- LOCAL FUNCTIONS PROTOTYPES
+ -----------------------------------------------------------------------*/
+
+/*- GLOBAL STATIC VARIABLES
+ -----------------------------------------------------------------------*/
+
+/*- GLOBAL EXTERN VARIABLES
+ -----------------------------------------------------------------------*/
+
+/*- LOCAL FUNCTIONS IMPLEMENTATION
+ -----------------------------------------------------------------------*/
+
+/*- APIs IMPLEMENTATION
+ -----------------------------------------------------------------------*/
+void KEYPAD_Init(ST_KEYPADConfig_t *pKEYPAD) {
+  GPIO_Init(pKEYPAD->keyRowCfg);
+  GPIO_Init(pKEYPAD->keyColCfg);
   vuint8_t i = 0;
-  for (i = 0; i < Row_Size; i++) {
-    GPIO_PinWrite(KEYPAD_PORT, Keypad_Rows[i], LOW);
+  for (i = 0; i < ROWS; i++) {
+    GPIO_PinWrite(KEYPAD_PORT, pKEYPAD->keyRowCfg[i].pinNumber, LOW);
   }
 }
 
-vuint8_t KEYPAD_getKey(void) {
+vuint8_t KEYPAD_getKey(ST_KEYPADConfig_t *pKEYPAD) {
   vuint8_t i = 0, j = 0;
-  for (i = 0; i < Row_Size; i++) {
-    GPIO_PinWrite(KEYPAD_PORT, Keypad_Rows[i], HIGH);
-    for (j = 0; j < Col_Size; j++) {
-      if (GPIO_PinRead(KEYPAD_PORT, Keypad_Cols[j])) {
-        while (GPIO_PinRead(KEYPAD_PORT, Keypad_Cols[j]))
+  for (i = 0; i < ROWS; i++) {
+    GPIO_PinWrite(KEYPAD_PORT, pKEYPAD->keyRowCfg[i].pinNumber, HIGH);
+    for (j = 0; j < COLS; j++) {
+      if (GPIO_PinRead(KEYPAD_PORT, pKEYPAD->keyColCfg[j].pinNumber)) {
+        while (GPIO_PinRead(KEYPAD_PORT, pKEYPAD->keyColCfg[j].pinNumber))
           ;
-        GPIO_PinWrite(KEYPAD_PORT, Keypad_Rows[i], LOW);
+        GPIO_PinWrite(KEYPAD_PORT, pKEYPAD->keyRowCfg[i].pinNumber, LOW);
         switch (i) {
         case 0:
           if (j == 0)
@@ -84,7 +96,7 @@ vuint8_t KEYPAD_getKey(void) {
         }
       }
     }
-    GPIO_PinWrite(KEYPAD_PORT, Keypad_Rows[i], LOW);
+    GPIO_PinWrite(KEYPAD_PORT, pKEYPAD->keyRowCfg[i].pinNumber, LOW);
   }
   return 'N'; // No key pressed
 }
