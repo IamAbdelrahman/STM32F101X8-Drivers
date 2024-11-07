@@ -1,44 +1,38 @@
 /******************************************************************************
  * Copyright (C) 2024 by Abdelrahman Kamal - Learn-In-Depth Diploma
  *****************************************************************************/
-/**
- * @file NVIC.h
- * @brief The interface definition for the NVIC core peripheral
+
+/*****************************************************************************
+ * FILE DESCRIPTION
+ * ----------------------------------------------------------------------------
+ *	@file: NVIC.h
+ *	@brief The interface definition for the NVIC core peripheral.
  *
- * This is the header file for the definition of the interface for the NVIC core
- * peripheral on a standard microcontroller.
- * @author Abdelrahman Kamal
- *
- */
+ *	@details This is the header file for the definition of the interface for
+ *      the NVIC core peripheral on a standard microcontroller..
+ *****************************************************************************/
+#ifndef INCLUDES_NVIC_H_
+#define INCLUDES_NVIC_H_
+/*- INCLUDES
+-----------------------------------------------------------------------*/
+#include "STM32f101x8.h"
 
-#ifndef NVIC_H_
-#define NVIC_H_
+/*- GLOBAL MACROS
+-----------------------------------------------------------------------*/
+/*- INTERRUPT STATUS */
+#define NVIC_INTERRUPT_ACTIVE   (1UL)
+#define NVIC_INTERRUPT_INACTIVE (0UL)
 
-/**********************************************************************
- * Includes
- **********************************************************************/
-#include "Stm32f101x8.h"
-/**********************************************************************
- * Preprocessor Macros
- **********************************************************************/
-// @ref interrupt_status_define
-#define NVIC_INTERRUPT_ACTIVE 	1UL
-#define NVIC_INTERRUPT_INACTIVE 	0UL
+/*- PRIORITY GROUPS */
+#define NVIC_PRIO_16GRP_0SUBGRP (0x300UL)
+#define NVIC_PRIO_8GRP_2SUBGRP  (0x400UL)
+#define NVIC_PRIO_4GRP_4SUBGRP  (0x500UL)
+#define NVIC_PRIO_2GRP_8SUBGRP  (0x600UL)
+#define NVIC_PRIO_0GRP_8SUBGRP  (0x700UL)
 
-// @ref priority_groups_define
-#define NVIC_PRIO_16GRP_0SUBGRP 	0x300U
-#define NVIC_PRIO_8GRP_2SUBGRP 	0x400U
-#define NVIC_PRIO_4GRP_4SUBGRP 	0x500U
-#define NVIC_PRIO_2GRP_8SUBGRP 	0x600U
-#define NVIC_PRIO_0GRP_8SUBGRP 	0x700U
-
-/**********************************************************************
- * Typedefs
- **********************************************************************/
-/**
- * Defines an enumerated list of all the IRQn on the NVIC
- * peripheral in STM32 MCU.
- */
+/*- GLOBAL TYPEDEFS
+-----------------------------------------------------------------------*/
+/*- ALL IRQn SUPPORTED BY NVIC */
 typedef enum {
   WWDG,
   PVD,
@@ -81,9 +75,9 @@ typedef enum {
   I2C2_ER,
   SPI1,
   SPI2,
-  USART1,
-  USART2,
-  USART3,
+  USART1_IRQ,
+  USART2_IRQ,
+  USART3_IRQ,
   EXTI10_IRQ,
   EXTI11_IRQ = 40,
   EXTI12_IRQ = 40,
@@ -91,19 +85,115 @@ typedef enum {
   EXTI14_IRQ = 40,
   EXTI15_IRQ = 40,
   RTCAlarm
-
 } EN_IRQ_t;
 
-/**********************************************************************
- * Function Prototypes
- **********************************************************************/
-void NVIC_enableIRQ(EN_IRQ_t IRQn);
-void NVIC_disableIRQ(EN_IRQ_t IRQn);
-vuint32_t NVIC_getPendingIRQ(EN_IRQ_t IRQn);
-void NVIC_setPendingIRQ(EN_IRQ_t IRQn);
-void NVIC_clearPendingIRQ(EN_IRQ_t IRQn);
-vuint32_t NVIC_getActive(EN_IRQ_t IRQn);
-void NVIC_setPriority(EN_IRQ_t IRQn, vuint32_t priority);
-vuint32_t NVIC_getPriority(EN_IRQ_t IRQn);
+/*- APIs PROTOTYPES
+-----------------------------------------------------------------------*/
+/************************************************************************
+ * Service Name: NVIC_EnableIRQ
+ * Syntax: inline void NVIC_EnableIRQ(EN_IRQ_t IRQn)
+ * Sync/Async: Synchronous
+ * Reentrancy: Non reentrant
+ * @description: This function is used to enable an interrupt signal.
+ * @param (in): IRQn
+ * @param (inout): None
+ * @param (out): None
+ * @return: None
+ *************************************************************************/
+void NVIC_EnableIRQ(EN_IRQ_t IRQn);
 
-#endif /* NVIC_H_ */
+/************************************************************************
+ * Service Name: NVIC_DisableIRQ
+ * Syntax: inline void NVIC_DisableIRQ(EN_IRQ_t IRQn)
+ * Sync/Async: Synchronous
+ * Reentrancy: Non reentrant
+ * @description: This function is used to disable an interrupt signal.
+ * @param (in): IRQn
+ * @param (inout): None
+ * @param (out): None
+ * @return: None
+ *************************************************************************/
+void NVIC_DisableIRQ(EN_IRQ_t IRQn);
+
+/************************************************************************
+ * Service Name: NVIC_GetPendingIRQ
+ * Syntax: vuint32_t NVIC_GetPendingIRQ(EN_IRQ_t IRQn)
+ * Sync/Async: Synchronous
+ * Reentrancy: Non reentrant
+ * @description: This function is used to return true (IRQ-Number) if IRQn is
+ *pending.
+ * @param (in): IRQn
+ * @param (inout): None
+ * @param (out): None
+ * @return: volatile unsigned int
+ *************************************************************************/
+vuint32_t NVIC_GetPendingIRQ(EN_IRQ_t IRQn);
+
+/************************************************************************
+ * Service Name: NVIC_SetPendingIRQ
+ * Syntax: void NVIC_SetPendingIRQ(EN_IRQ_t IRQn)
+ * Sync/Async: Synchronous
+ * Reentrancy: Non reentrant
+ * @description: This function is used to set IRQn pending.
+ * @param (in): IRQn
+ * @param (inout): None
+ * @param (out): None
+ * @return: None
+ *************************************************************************/
+void NVIC_SetPendingIRQ(EN_IRQ_t IRQn);
+
+/************************************************************************
+ * Service Name: NVIC_ClearPendingIRQ
+ * Syntax: void NVIC_ClearPendingIRQ(EN_IRQ_t IRQn)
+ * Sync/Async: Synchronous
+ * Reentrancy: Non reentrant
+ * @description: This function is used to clear IRQn pending status.
+ * @param (in): IRQn
+ * @param (inout): None
+ * @param (out): None
+ * @return: None
+ *************************************************************************/
+void NVIC_ClearPendingIRQ(EN_IRQ_t IRQn);
+
+/************************************************************************
+ * Service Name: NVIC_GetActive
+ * Syntax: vuint32_t NVIC_GetActive(EN_IRQ_t IRQn)
+ * Sync/Async: Synchronous
+ * Reentrancy: Non reentrant
+ * @description: This function is used to return the IRQ number of the active
+ *interrupt.
+ * @param (in): IRQn
+ * @param (inout): None
+ * @param (out): None
+ * @return: volatile unsigned int
+ *************************************************************************/
+vuint32_t NVIC_GetActive(EN_IRQ_t IRQn);
+
+/************************************************************************
+ * Service Name: NVIC_SetPriority
+ * Syntax: void NVIC_SetPriority(EN_IRQ_t IRQn, vuint32_t priority)
+ * Sync/Async: Synchronous
+ * Reentrancy: Non reentrant
+ * @description: This function is used to set priority for IRQn.
+ * @param (in): IRQn
+ * @param (in): priority
+ * @param (inout): None
+ * @param (out): None
+ * @return: None
+ *************************************************************************/
+void NVIC_SetPriority(EN_IRQ_t IRQn, vuint32_t priority);
+
+/************************************************************************
+ * Service Name: NVIC_GetPriority
+ * Syntax: vuint32_t NVIC_GetPriority(EN_IRQ_t IRQn)
+ * Sync/Async: Synchronous
+ * Reentrancy: Non reentrant
+ * @description: This function is used to read priority for IRQn.
+ * @param (in): IRQn
+ * @param (inout): None
+ * @param (out): None
+ * @return: volatile unsigned int
+ *************************************************************************/
+vuint32_t NVIC_GetPriority(EN_IRQ_t IRQn);
+
+#endif /* INCLUDES_NVIC_H_ */
