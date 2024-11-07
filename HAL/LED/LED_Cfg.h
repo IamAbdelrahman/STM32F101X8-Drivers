@@ -5,23 +5,32 @@
 /*****************************************************************************
  * FILE DESCRIPTION
  * ----------------------------------------------------------------------------
- * @file LED.h
- * @brief The interface definition for the LED driver
- * @description This is the header file for the definition of the interface
- * for the LED driver connected to the MCU.
+ *	@file: LED_Cfg.h
+ *	@brief This module contains interface definitions for the
+ *   LED configuration.
  *****************************************************************************/
-#ifndef INC_LED_H_
-#define INC_LED_H_
+
+#ifndef CFG_LED_CFG_H_
+#define CFG_LED_CFG_H_
 
 /*- INCLUDES
 -----------------------------------------------------------------------*/
-#include "../cfg/LED_Cfg.h"
+#include "../../MCAL/inc/GPIO.h"
 
 /*- GLOBAL MACROS
 -----------------------------------------------------------------------*/
+/*- DEFINE LED CONFIGURATION */
+#define LEDPB0                                                                 \
+  (ST_LEDConfig_t) { &GPIOB0, HIGH }
+#define LEDPB1                                                                 \
+  (ST_LEDConfig_t) { &GPIOB1, TOGGLE }
 
 /*- GLOBAL TYPEDEFS
 -----------------------------------------------------------------------*/
+typedef struct {
+  ST_GPIOConfig_t *ledCfg;
+  EN_PIN_STATE_t ledState;
+} ST_LEDConfig_t;
 
 /*- GLOBAL VARIABLES
 -----------------------------------------------------------------------*/
@@ -29,29 +38,17 @@
 /*- APIs PROTOTYPES
 -----------------------------------------------------------------------*/
 /************************************************************************
- * Service Name: LED_Init
- * Syntax: void LED_Init(ST_LEDConfig_t *pLED)
+ * Service Name: LED_ConfigGet
+ * Syntax: const ST_LEDConfig_t *const LED_ConfigGet(void)
  * Sync/Async: Synchronous
  * Reentrancy: Non reentrant
- * @description: Initialize LED
- * @param (in): pLEDArray a pointer to an array of LEDs or a single LED
+ * @description: A helper function to initialize the LED based on a config
+ * table.
+ * @param (in): None
  * @param (inout): None
  * @param (out): None
- * @return: None
+ * @return: const ST_LEDConfig_t* const
  *************************************************************************/
-void LED_Init(const ST_LEDConfig_t *pLEDArray);
+const ST_LEDConfig_t *const LED_ConfigGet(void);
 
-/************************************************************************
- * Service Name: LED_Control
- * Syntax: void LED_Control(const ST_LEDConfig_t *pLED)
- * Sync/Async: Synchronous
- * Reentrancy: Non reentrant
- * @description: Control LED
- * @param (in): pLED a pointer to the LEDConfig structure
- * @param (inout): None
- * @param (out): None
- * @return: None
- *************************************************************************/
-void LED_Control(const ST_LEDConfig_t *pLED);
-
-#endif /* INC_LED_H_ */
+#endif /* CFG_LED_CFG_H_ */
