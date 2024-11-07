@@ -30,8 +30,8 @@
 #endif
 
 #define CPU_TYPE        	CPU_TYPE_64
-#define CPU_BIT_ORDER		MSB_FIRST
-#define CPU_BYTE_ORDER		HIGH_BYTE_FIRST
+#define CPU_BIT_ORDER		LSB_FIRST
+#define CPU_BYTE_ORDER		LOW_BYTE_FIRST
 
 typedef _Bool              	boolean;
 typedef unsigned char      	uint8_t;
