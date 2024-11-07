@@ -9,9 +9,9 @@ Welcome to the STM32 Drivers repository! This project contains drivers for vario
 - [MCAL Drivers](#mcal-drivers)
  - [GPIO](#gpio)
  - [EXTI](#exti)
- - [RCC] (#rcc)
- - [NVIC] (#nvic)
- - [USART] (#usart)
+ - [RCC](#rcc)
+ - [NVIC](#nvic)
+ - [USART](#usart)
 
 - [HAL Drivers](#hal-drivers)
   - [LED](#led)
