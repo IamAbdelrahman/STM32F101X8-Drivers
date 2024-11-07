@@ -28,7 +28,7 @@
 -----------------------------------------------------------------------*/
 static const ST_BUZZERConfig_t configBuzzer[] = {BUZZERPA0, BUZZERPB0};
 
-/*- GLOBAL EXTERN VARIABLES
+/*- GLOBAL VARIABLES
 -----------------------------------------------------------------------*/
 vuint8_t configSizeBuzzer = sizeof(configBuzzer) / sizeof(configBuzzer[0]);
 
