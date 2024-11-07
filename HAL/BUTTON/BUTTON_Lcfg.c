@@ -27,7 +27,7 @@
 -----------------------------------------------------------------------*/
 static const ST_BUTTONConfig_t configButton[] = {BUTTONPD0};
 
-/*- GLOBAL EXTERN VARIABLES
+/*- GLOBAL VARIABLES
 -----------------------------------------------------------------------*/
 vuint8_t configSizeButton = sizeof(configButton) / sizeof(configButton[0]);
 
