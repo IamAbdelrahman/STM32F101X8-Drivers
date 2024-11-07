@@ -121,7 +121,7 @@ void NVIC_DisableIRQ(EN_IRQ_t IRQn);
  * Sync/Async: Synchronous
  * Reentrancy: Non reentrant
  * @description: This function is used to return true (IRQ-Number) if IRQn is
- *pending.
+ * pending.
  * @param (in): IRQn
  * @param (inout): None
  * @param (out): None
