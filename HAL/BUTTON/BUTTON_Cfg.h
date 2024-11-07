@@ -5,25 +5,30 @@
 /*****************************************************************************
  * FILE DESCRIPTION
  * ----------------------------------------------------------------------------
- *	@file: BUTTON.h
- *   @brief The interface definition for the BUTTON Driver
+ *	@file: BUTTON_Cfg.h
+ *   @brief This module contains interface definitions for the
+ *   BUTTON configuration.
  *
- * 	@description This is the header file for the definition of the interface
- *for the BUTTON driver connected to the microcontroller
  *****************************************************************************/
 
-#ifndef INC_BUTTON_H_
-#define INC_BUTTON_H_
+#ifndef CFG_BUTTON_CFG_H_
+#define CFG_BUTTON_CFG_H_
 
 /*- INCLUDES
 -----------------------------------------------------------------------*/
-#include "../cfg/BUTTON_Cfg.h"
+#include "../../MCAL/inc/GPIO.h"
 
 /*- GLOBAL MACROS
 -----------------------------------------------------------------------*/
+/*- DEFINE BUTTON CONFIGURATION */
+#define BUTTONPD0	 (ST_BUTTONConfig_t) { &GPIOD0, LOW }
 
 /*- GLOBAL TYPEDEFS
 -----------------------------------------------------------------------*/
+typedef struct {
+  ST_GPIOConfig_t *buttonCfg;
+  EN_PIN_STATE_t buttonState;
+} ST_BUTTONConfig_t;
 
 /*- GLOBAL VARIABLES
 -----------------------------------------------------------------------*/
@@ -31,29 +36,17 @@
 /*- APIs PROTOTYPES
 -----------------------------------------------------------------------*/
 /************************************************************************
- * Service Name: BUTTON_Init
- * Syntax: void BUTTON_Init(ST_BUTTONConfig_t *pBUTTON)
+ * Service Name: BUTTON_ConfigGet
+ * Syntax: const ST_BUTTONConfig_t *const BUTTON_ConfigGet(void)
  * Sync/Async: Synchronous
  * Reentrancy: Non reentrant
- * @description: Initialize BUTTON
+ * @description: A helper function to initialize the BUTTON based on a config
+ * table.
  * @param (in): None
  * @param (inout): None
  * @param (out): None
- * @return: None
+ * @return: const ST_BUTTONConfig_t* const
  *************************************************************************/
-void BUTTON_Init(ST_BUTTONConfig_t *pBUTTON);
+const ST_BUTTONConfig_t *const BUTTON_ConfigGet(void);
 
-/************************************************************************
- * Service Name: BUTTON_Read
- * Syntax: EN_PIN_STATE_t BUTTON_Read(ST_BUTTONConfig_t *pBUTTON)
- * Sync/Async: Synchronous
- * Reentrancy: Non reentrant
- * @description: Read the state of a BUTTON
- * @param (in): None
- * @param (inout): None
- * @param (out): None
- * @return: None
- *************************************************************************/
-EN_PIN_STATE_t BUTTON_Read(ST_BUTTONConfig_t *pBUTTON);
-
-#endif /* INC_BUTTON_H_ */
+#endif /* CFG_BUTTON_CFG_H_ */

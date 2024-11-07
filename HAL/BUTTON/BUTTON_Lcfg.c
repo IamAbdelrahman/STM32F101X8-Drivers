@@ -5,14 +5,14 @@
 /*****************************************************************************
  * FILE DESCRIPTION
  * ----------------------------------------------------------------------------
- *	@file: BUTTON.c
- * 	@brief The implementation for the BUTTON driver
+ *	@file: BUTTON_Lcfg.c
+ *  @brief This module contains the implementation for the BUTTON configuration
  *
  *****************************************************************************/
 
 /*- INCLUDES
 -----------------------------------------------------------------------*/
-#include "../inc/BUTTON.h"
+#include "../cfg/BUTTON_Cfg.h"
 
 /*- LOCAL MACROS
 -----------------------------------------------------------------------*/
@@ -25,24 +25,17 @@
 
 /*- GLOBAL STATIC VARIABLES
 -----------------------------------------------------------------------*/
+static const ST_BUTTONConfig_t configButton[] = {BUTTONPD0};
 
 /*- GLOBAL EXTERN VARIABLES
 -----------------------------------------------------------------------*/
-extern vuint8_t configSizeButton;
+vuint8_t configSizeButton = sizeof(configButton) / sizeof(configButton[0]);
 
 /*- LOCAL FUNCTIONS IMPLEMENTATION
 -----------------------------------------------------------------------*/
 
 /*- APIs IMPLEMENTATION
 -----------------------------------------------------------------------*/
-void BUTTON_Init(ST_BUTTONConfig_t *pBUTTON) {
-  vuint8_t i = 0;
-  for (i = 0; i < configSizeButton; i++)
-    GPIO_Init(pBUTTON[i].buttonCfg);
-}
-
-EN_PIN_STATE_t BUTTON_Read(ST_BUTTONConfig_t *pBUTTON) {
-  pBUTTON->buttonState = GPIO_PinRead(pBUTTON->buttonCfg->portNumber,
-                         pBUTTON->buttonCfg->pinNumber);
-  return (pBUTTON->buttonState);
+const ST_BUTTONConfig_t *const BUTTON_ConfigGet(void) {
+  return (ST_BUTTONConfig_t *const) & configButton[0];
 }
