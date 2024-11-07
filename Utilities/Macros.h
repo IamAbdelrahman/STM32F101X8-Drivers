@@ -17,9 +17,9 @@
 /*- GLOBAL MACROS
  -----------------------------------------------------------------------*/
 #define NULL	(void*)0
+
 /* The following macros perform various bitwise operations on registers.
  ******************************************************************************/
-
 /**
  * @brief Sets a specific bit in a register.
  * @param REG The register to modify.
