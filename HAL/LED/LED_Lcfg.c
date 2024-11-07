@@ -17,8 +17,9 @@
 /*- LOCAL MACROS
 -----------------------------------------------------------------------*/
 
-/*- LOCAL DATATYPES
+/*- GLOBAL VARIABLES
 -----------------------------------------------------------------------*/
+vuint8_t configSizeLed = sizeof(configLed) / sizeof(configLed[0]);
 
 /*- LOCAL FUNCTIONS PROTOTYPES
 -----------------------------------------------------------------------*/
@@ -27,9 +28,13 @@
 -----------------------------------------------------------------------*/
 static const ST_LEDConfig_t configLed[] = {LEDPB0, LEDPB1};
 
-/*- GLOBAL EXTERN VARIABLES
+/*- GLOBAL VARIABLES
 -----------------------------------------------------------------------*/
 vuint8_t configSizeLed = sizeof(configLed) / sizeof(configLed[0]);
+
+/*- GLOBAL EXTERN VARIABLES
+-----------------------------------------------------------------------*/
+
 
 /*- LOCAL FUNCTIONS IMPLEMENTATION
 -----------------------------------------------------------------------*/
