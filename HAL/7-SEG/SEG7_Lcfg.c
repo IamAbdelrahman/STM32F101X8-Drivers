@@ -28,7 +28,7 @@
 -----------------------------------------------------------------------*/
 static const ST_SEG7Config_t configSeg7[] = {SEGCFG};
 
-/*- GLOBAL EXTERN VARIABLES
+/*- GLOBAL VARIABLES
 -----------------------------------------------------------------------*/
 vuint8_t configSizeSeg7 = sizeof(configSeg7) / sizeof(configSeg7[0]);
 
