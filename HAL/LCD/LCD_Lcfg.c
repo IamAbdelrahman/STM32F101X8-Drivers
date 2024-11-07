@@ -27,7 +27,7 @@
 -----------------------------------------------------------------------*/
 static const ST_LCDConfig_t configLcd[] = {LCDCFG};
 
-/*- GLOBAL EXTERN VARIABLES
+/*- GLOBAL VARIABLES
 -----------------------------------------------------------------------*/
 vuint8_t configSizeLcd = sizeof(configLcd) / sizeof(configLcd[0]);
 
